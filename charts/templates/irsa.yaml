@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: '{{ .Values.global.namespace }}-{{ .Values.label }}'
+    namespace: {{ .Values.global.namespace }}
+    labels:
+        app: {{ .Values.label }}
+    annotations:
+        eks.amazonaws.com/role-arn: 'arn:aws:iam::174950171951:role/api-service-account-role-{{ .Values.global.namespace }}'
+automountServiceAccountToken: true

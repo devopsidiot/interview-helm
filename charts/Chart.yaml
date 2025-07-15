@@ -1,0 +1,7 @@
+apiVersion: v2
+name: world-eater
+description: Reusable helm chart for world-eater
+type: application
+version: 0.1.57
+appVersion: "1.22.0"
+icon: https://spikeybits.com/wp-content/uploads/2016/05/chaos_inthe_imperium-chaos-kharn.jpg

@@ -1,0 +1,76 @@
+---
+global:
+  namespace: sandbox
+  environment: rnd
+
+preview:
+  enabled: false
+
+label: content-service
+
+configMapRef: content-service-configmap
+secretRef: content-service-secret
+
+image:
+  name: ""
+  tag: ""
+
+# for preview environment iterations
+version: ""
+name: ""
+
+command: ["node"]
+args: ["dist/main"]
+
+minReplicas: 1
+maxReplicas: 1
+
+livenessProbe:
+  path: /api/v3/daily-worship/healthcheck
+  initialDelay: 60
+
+readinessProbe:
+  path: /api/health
+  initialDelay: 60
+
+
+alb:
+  scheme: internet-facing
+  certificate: ""
+  healthcheck: /api/v3/daily-worship/healthcheck
+  waf: ""
+  appgroup: ""
+
+hostnames:
+  - dns: ""
+    path: ""
+  - dns: ""
+    path: ""
+
+scaling:
+  targetGroupName: ""
+  metricStat: "Sum"
+  metricName: "TargetResponseTime"
+  targetMetricValue: "50"
+  minMetricValue: "0"
+  activationTargetMetricValue: "100"
+  metricCollectionTime: "60"
+  metricStatPeriod: "60"
+resources:
+  requests:
+    cpu: "2"
+    memory: 4Gi
+  limits:
+    cpu: "2"
+    memory: 4Gi
+
+appSecrets:
+  - key: appSecret1
+
+sharedSecrets:
+  - key: sharedSecret1
+
+secrets:
+  namespace: sandbox
+
+# Have not added XP into this values file yet, but can certainly talk about it.
